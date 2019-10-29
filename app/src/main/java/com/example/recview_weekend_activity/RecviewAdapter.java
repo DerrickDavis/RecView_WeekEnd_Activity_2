@@ -13,12 +13,12 @@ import java.util.List;
 
 public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHolder> {
 
-    private List<String> mTitleInfo;
+    private List<Message> mTitleInfo;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
 
-    RecviewAdapter(Context context, List<String> tleInfo){
+    RecviewAdapter(Context context, List<Message> tleInfo){
      this.mInflater = LayoutInflater.from(context);
      this.mTitleInfo = tleInfo;
     }
@@ -37,8 +37,8 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull RecviewAdapter.ViewHolder holder, int position) {
 
-        String titlview = mTitleInfo.get(position);
-        holder.tvtle.setText(titlview);
+        Message message = mTitleInfo.get(position);
+        holder.tvtle.setText(message.getTitle());
     }
 
     @Override
@@ -63,7 +63,7 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         }
 
 
-        String getItem(int id){
+        Message getItem(int id){
             return mTitleInfo.get(id);
 
         }
