@@ -9,7 +9,7 @@ public class Message implements Serializable {
 
     public Message(String s, String u){
         mTitle = s;
-
+        mUser = u;
     }
     public String getmUser() {
         return mUser;
