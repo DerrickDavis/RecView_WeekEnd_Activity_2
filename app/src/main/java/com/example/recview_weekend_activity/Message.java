@@ -1,25 +1,33 @@
 package com.example.recview_weekend_activity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Message implements Serializable {
 
-    private String mtitle;
+    private String mTitle;
+    private String mUser;
+
+    public Message(String s, String u){
+        mTitle = s;
+
+    }
+    public String getmUser() {
+        return mUser;
+    }
+
+    public void setmUser(String mUser) {
+        this.mUser = mUser;
+    }
+
+
 
     public String getTitle() {
-        return mtitle;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.mtitle = title;
+        this.mTitle = title;
     }
 
-  public static ArrayList<Message> createTitleMessageList(int numTitles){
-        ArrayList<Message> messages = new ArrayList<Message>();
-        for (int i = 1; i<= numTitles; i++){
-          messages.add(new Message());
-      }
-        return messages;
-  }
 }
+

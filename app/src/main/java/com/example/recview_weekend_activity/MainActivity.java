@@ -12,7 +12,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements RecviewAdapter.ItemClickListener {
-    RecviewAdapter adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecviewAdapter adapter;
 
 
     @Override
@@ -20,8 +22,28 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<String> titleNames = new ArrayList<>();
-        titleNames.add("To Infintiy and Beyond");
+        ArrayList<Message> titleNames = new ArrayList<>();
+
+        titleNames.add(new Message("Can one Trust Another", "Tom Petty"));
+        titleNames.add(new Message("To Infintiy and Beyond", "Buzz and wood "));
+        titleNames.add(new Message("Soul food on a Plane", "Sam Lee Jackson"));
+        titleNames.add(new Message("Heads Up 7 Up", "The Whole 4th grade prod"));
+        titleNames.add(new Message("RedRum", "stephen King"));
+        titleNames.add(new Message("Gilligan's Planet", "Skipper, Gill & Ginger Inc."));
+        titleNames.add(new Message("To the Beyond", "Bob Dylan"));
+        titleNames.add(new Message("Over Under the Hill", "50+ Productions"));
+        titleNames.add(new Message("To and From", "TP"));
+        titleNames.add(new Message("Beyond and Back", "Tom & Jerry"));
+        titleNames.add(new Message("Finish first or last", "Ricky Bobby"));
+        titleNames.add(new Message("To Be or ...... Not", "Rome Jul"));
+        titleNames.add(new Message("Can one Trust Another", "IDK Inc."));
+
+     //This is an option to set the list information
+    /*Message msg = new Message("Can one Trust Another");
+        titleNames.add(msg);*/
+
+//this manually posts stings to list, instead of using the adapter
+        /*titleNames.add("To Infintiy and Beyond");
         titleNames.add("Soul food on a Plane");
         titleNames.add("Heads Up 7 Up");
         titleNames.add("RedRum");
@@ -32,19 +54,17 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         titleNames.add("Beyond and Back");
         titleNames.add("Finish first or last");
         titleNames.add("To Be or ...... Not");
-        titleNames.add("Can one Trust Another");
+        titleNames.add("Can one Trust Another");*/
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
 
-        /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration
-                (recyclerView.getContext(),layoutManager.getOrientation());
-                recyclerView.addItemDecoration(dividerItemDecoration);*/
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecviewAdapter(this,titleNames);
+        adapter = new RecviewAdapter(this, titleNames);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
     }
@@ -53,4 +73,5 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
 
     }
+
 }
