@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">RecView_WeekEnd_Activity</string>
+    <string name="add">Add 1</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="enter_producer">Enter producer</string>
 </resources>
