@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public RecviewAdapter(Context context, List<Message> tleInfo){
+    public RecviewAdapter(Context context, List<Message> tleInfo) {
         this.mInflater = LayoutInflater.from(context);
         this.mTitleInfo = tleInfo;
     }
@@ -26,7 +27,7 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         TextView tvtle;
         TextView tvuser;
 
-        public  ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
 
             tvtle = itemView.findViewById(R.id.tv_title);
@@ -34,8 +35,9 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
 
             itemView.setOnClickListener(this);
         }
+
         @Override
-        public  void onClick(View view) {
+        public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
@@ -43,7 +45,7 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
     @NonNull
     @Override
     public RecviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recviewitem, parent,false);
+        View view = mInflater.inflate(R.layout.recviewitem, parent, false);
         return new ViewHolder(view);
 
         //View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recviewitem,parent,false);
@@ -64,20 +66,20 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         return mTitleInfo.size();
     }
 
-    Message getItem(int id){
+    Message getItem(int id) {
         return mTitleInfo.get(id);
 
     }
 
-    void setClickListener(ItemClickListener itemClickListener){
+    void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    public interface ItemClickListener{
-        void onItemClick (View view, int position);
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
-    public void setListofMessages(List<Message> msgLst){
+    public void setListofMessages(List<Message> msgLst) {
         this.mTitleInfo = msgLst;
         notifyDataSetChanged();
     }

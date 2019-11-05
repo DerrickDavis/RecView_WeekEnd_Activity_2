@@ -1,15 +1,14 @@
 package com.example.recview_weekend_activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         edtProd = findViewById(R.id.et_enterProducer);
         recyclerView = findViewById(R.id.recyclerView);
 
-
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
@@ -51,8 +49,7 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
     }
 
     public void populateList() {
-
-        /*titleNames.add(new Message("Can one Trust Another", "Tom Petty"));
+        titleNames.add(new Message("Can one Trust Another", "Tom Petty"));
         titleNames.add(new Message("To Infintiy and Beyond", "Buzz and wood "));
         titleNames.add(new Message("Soul food on a Plane", "Sam Lee Jackson"));
         titleNames.add(new Message("Heads Up 7 Up", "The Whole 4th grade prod"));
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         titleNames.add(new Message("Beyond and Back", "Tom & Jerry"));
         titleNames.add(new Message("Finish first or last", "Ricky Bobby"));
         titleNames.add(new Message("To Be or ...... Not", "Rome Jul"));
-        titleNames.add(new Message("Can one Trust Another", "IDK Inc."));*/
+        titleNames.add(new Message("Can one Trust Another", "IDK Inc."));
     }
 
     public void clearFields() {
@@ -83,10 +80,11 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
     }
 
     public void onClickRemove(View view) {
-        if(titleNames!= null && titleNames.size() > 0 && lastSelectedItem >= 0){
-        titleNames.remove(lastSelectedItem);
-        adapter.setListofMessages(titleNames);
-        lastSelectedItem = -1;}
+        if (titleNames != null && titleNames.size() > 0 && lastSelectedItem >= 0) {
+            titleNames.remove(lastSelectedItem);
+            adapter.setListofMessages(titleNames);
+            lastSelectedItem = -1;
+        }
     }
 
     public void onClickCancel(View view) {
