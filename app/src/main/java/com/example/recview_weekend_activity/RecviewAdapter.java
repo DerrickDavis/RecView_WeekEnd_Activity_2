@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,25 +13,64 @@ import java.util.List;
 
 public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHolder> {
 
-    public List<Message> mTitleInfo;
+    public List<MessageInterface> mTitleInfo;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
-    public RecviewAdapter(Context context, List<Message> tleInfo) {
+    public RecviewAdapter(Context context, List<MessageInterface> tleInfo) {
         this.mInflater = LayoutInflater.from(context);
         this.mTitleInfo = tleInfo;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         TextView tvtle;
         TextView tvuser;
 
+        TextView tvufirst;
+        TextView tvlast;
+        TextView tvutel;
+
+        class MessageViewHolder extends RecyclerView.ViewHolder {
+
+            public MessageViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tvtle = itemView.findViewById(R.id.tv_title);
+                tvuser = itemView.findViewById(R.id.tv_producer);
+
+                itemView.setOnClickListener((View.OnClickListener) this);
+            }
+
+            void bindView(int position) {
+                Message message = (Message) mTitleInfo.get(position);
+
+                tvtle.setText(((Message) mTitleInfo.get(position)).getTitle());
+                tvuser.setText(((Message) mTitleInfo.get(position)).getmUser());
+            }
+        }
+
+        class MessageTelephoneViewHolder extends RecyclerView.ViewHolder {
+
+            public MessageTelephoneViewHolder(@NonNull View itemView) {
+                super(itemView);
+                tvufirst = itemView.findViewById(R.id.tv_userFirst);
+                tvlast = itemView.findViewById(R.id.tv_userLast);
+                tvutel = itemView.findViewById(R.id.tv_userTel);
+
+                itemView.setOnClickListener((View.OnClickListener) this);
+            }
+
+            void bindView(int position) {
+                MessageTelephone messageTelephone = (MessageTelephone) mTitleInfo.get(position);
+                tvufirst.setText(((Message) mTitleInfo.get(position)).getTitle());
+                tvlast.setText(((Message) mTitleInfo.get(position)).getmUser());
+                tvutel.setText(((Message) mTitleInfo.get(position)).getTitle());
+
+            }
+        }
+
         public ViewHolder(View itemView) {
             super(itemView);
-
-            tvtle = itemView.findViewById(R.id.tv_title);
-            tvuser = itemView.findViewById(R.id.tv_producer);
-
             itemView.setOnClickListener(this);
         }
 
@@ -52,21 +90,21 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         //return new ViewHolder(itemView);
     }
 
-    @Override
+    /*@Override
     public void onBindViewHolder(@NonNull RecviewAdapter.ViewHolder holder, int position) {
         holder.tvtle.setText(mTitleInfo.get(position).getTitle());
         holder.tvuser.setText(mTitleInfo.get(position).getmUser());
 
-        /*Message message = mTitleInfo.get(position);
-        holder.tvtle.setText(message.getTitle());*/
-    }
+        *//*Message message = mTitleInfo.get(position);
+        holder.tvtle.setText(message.getTitle());*//*
+    }*/
 
     @Override
     public int getItemCount() {
         return mTitleInfo.size();
     }
 
-    Message getItem(int id) {
+    MessageInterface getItem(int id) {
         return mTitleInfo.get(id);
 
     }
@@ -79,7 +117,7 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         void onItemClick(View view, int position);
     }
 
-    public void setListofMessages(List<Message> msgLst) {
+    public void setListofMessages(List<MessageInterface> msgLst) {
         this.mTitleInfo = msgLst;
         notifyDataSetChanged();
     }

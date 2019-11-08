@@ -2,7 +2,7 @@ package com.example.recview_weekend_activity;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
+public class Message implements Serializable, MessageInterface {
 
     private String mTitle;
     private String mUser;
@@ -29,5 +29,10 @@ public class Message implements Serializable {
         this.mTitle = title;
     }
 
+
+    @Override
+    public int getType() {
+        return MessageInterface.MESSAGE_TEXT;
+    }
 }
 
