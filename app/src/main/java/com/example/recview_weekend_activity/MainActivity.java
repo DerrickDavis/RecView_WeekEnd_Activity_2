@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
     private RecviewAdapter adapter;
     private EditText edtTitle, edtProd;
     private Button add, remv, cancel;
-    private ArrayList<Message> titleNames = new ArrayList<>();
+    private ArrayList<MessageInterface> titleNames = new ArrayList<>();
     private int lastSelectedItem;
 
     @Override
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position).getTitle() + " " + adapter.getItem(position).getmUser() + " on row number " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "You clicked " + adapter.getItem(position).getTitle() + " " + adapter.getItem(position).getmUser() + " on row number " + position, Toast.LENGTH_SHORT).show();
         lastSelectedItem = position;
     }
 
@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements RecviewAdapter.It
         titleNames.add(new Message("Finish first or last", "Ricky Bobby"));
         titleNames.add(new Message("To Be or ...... Not", "Rome Jul"));
         titleNames.add(new Message("Can one Trust Another", "IDK Inc."));
+        titleNames.add(new MessageTelephone("Can one Trust Another", "IDK Inc.","87597658"));
+
     }
 
     public void clearFields() {

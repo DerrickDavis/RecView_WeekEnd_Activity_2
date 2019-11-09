@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHolder> {
+public class RecviewAdapter extends RecyclerView.Adapter {
 
     public List<MessageInterface> mTitleInfo;
     private LayoutInflater mInflater;
@@ -22,56 +22,54 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
         this.mTitleInfo = tleInfo;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    class MessageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvtle;
         TextView tvuser;
+
+        public MessageViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvtle = itemView.findViewById(R.id.tv_title);
+            tvuser = itemView.findViewById(R.id.tv_producer);
+
+            itemView.setOnClickListener(this);
+        }
+
+        void bindView(int position) {
+            Message message = (Message) mTitleInfo.get(position);
+
+            tvtle.setText(message.getTitle());
+            tvuser.setText(message.getmUser());
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+
+        }
+    }
+
+    class MessageTelephoneViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvufirst;
         TextView tvlast;
         TextView tvutel;
 
-        class MessageViewHolder extends RecyclerView.ViewHolder {
-
-            public MessageViewHolder(@NonNull View itemView) {
-                super(itemView);
-                tvtle = itemView.findViewById(R.id.tv_title);
-                tvuser = itemView.findViewById(R.id.tv_producer);
-
-                itemView.setOnClickListener((View.OnClickListener) this);
-            }
-
-            void bindView(int position) {
-                Message message = (Message) mTitleInfo.get(position);
-
-                tvtle.setText(((Message) mTitleInfo.get(position)).getTitle());
-                tvuser.setText(((Message) mTitleInfo.get(position)).getmUser());
-            }
-        }
-
-        class MessageTelephoneViewHolder extends RecyclerView.ViewHolder {
-
-            public MessageTelephoneViewHolder(@NonNull View itemView) {
-                super(itemView);
-                tvufirst = itemView.findViewById(R.id.tv_userFirst);
-                tvlast = itemView.findViewById(R.id.tv_userLast);
-                tvutel = itemView.findViewById(R.id.tv_userTel);
-
-                itemView.setOnClickListener((View.OnClickListener) this);
-            }
-
-            void bindView(int position) {
-                MessageTelephone messageTelephone = (MessageTelephone) mTitleInfo.get(position);
-                tvufirst.setText(((Message) mTitleInfo.get(position)).getTitle());
-                tvlast.setText(((Message) mTitleInfo.get(position)).getmUser());
-                tvutel.setText(((Message) mTitleInfo.get(position)).getTitle());
-
-            }
-        }
-
-        public ViewHolder(View itemView) {
+        public MessageTelephoneViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvufirst = itemView.findViewById(R.id.tv_userFirst);
+            tvlast = itemView.findViewById(R.id.tv_userLast);
+            tvutel = itemView.findViewById(R.id.tv_userTel);
+
             itemView.setOnClickListener(this);
+        }
+
+        void bindView(int position) {
+            MessageTelephone messageTelephone = (MessageTelephone) mTitleInfo.get(position);
+
+            tvufirst.setText(messageTelephone.getmUserFirst());
+            tvlast.setText(messageTelephone.getmUserLast());
+            tvutel.setText(messageTelephone.getmTel());
+
         }
 
         @Override
@@ -82,22 +80,47 @@ public class RecviewAdapter extends RecyclerView.Adapter<RecviewAdapter.ViewHold
 
     @NonNull
     @Override
-    public RecviewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.recviewitem, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView;
+        RecyclerView.ViewHolder viewHolder = null;
 
-        //View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recviewitem,parent,false);
-        //return new ViewHolder(itemView);
+        switch (viewType) {
+            case Message.MESSAGE_TEXT:
+                itemView = mInflater
+                        .inflate(R.layout.recviewitem, parent, false);
+                viewHolder = new MessageViewHolder(itemView);
+
+                break;
+
+            case Message.MESSAGE_URL:
+                itemView = mInflater
+                        .inflate(R.layout.recviewitemdetails, parent, false);
+                viewHolder = new MessageTelephoneViewHolder(itemView);
+
+                break;
+        }
+        return viewHolder;
     }
 
-    /*@Override
-    public void onBindViewHolder(@NonNull RecviewAdapter.ViewHolder holder, int position) {
-        holder.tvtle.setText(mTitleInfo.get(position).getTitle());
-        holder.tvuser.setText(mTitleInfo.get(position).getmUser());
+    @Override
+    public int getItemViewType(int position) {
+        return mTitleInfo.get(position).getType();
+    }
 
-        *//*Message message = mTitleInfo.get(position);
-        holder.tvtle.setText(message.getTitle());*//*
-    }*/
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (getItemViewType(position)) {
+            case Message.MESSAGE_TEXT:
+                ((MessageViewHolder) holder).bindView(position);
+                break;
+
+            case Message.MESSAGE_URL:
+                ((MessageTelephoneViewHolder) holder).bindView(position);
+
+                break;
+        }
+
+    }
 
     @Override
     public int getItemCount() {
